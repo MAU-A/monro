@@ -1,31 +1,36 @@
 from PIL import Image
 
 image = Image.open("monro.jpg")
-red, green, blue = image.split()
+
+red,green,blue = image.split() 
+r = red
+g = green
+b = blue
+
+r = red
+monro_left = (50, 0, 596, 522)
+monro_left = r.crop(monro_left)
+
+r = red 
+monro_red = (25, 0, 596-25, 522)
+monro_red = r.crop(monro_red)
+img = Image.blend(monro_left, monro_red, 0.5)
+
+b = blue
+monro_blue = (0, 0, 596-50, 522)
+monro_blue = b.crop(monro_blue)
+
+b = blue
+canal_blue = (25, 0, 596-25, 522)
+canal_blue = b.crop(canal_blue)
+img_2 = Image.blend(monro_blue, canal_blue, 0.5)
+
+g = green
+canal_green = (25, 0, 596-25, 522)
+canal_green = g.crop(canal_green)
+
+new_image = Image.merge("RGB", (monro_left, canal_green, monro_blue ))
 
 
-image_1 = Image.open("foto_red.jpg")
-monro_left = (51, 0, 696-50, 522)
-monro_left = image_1.crop(monro_left)
-
-image_2 = Image.open("foto_blue.jpg")
-monro_middle = (0, 0, 696-51, 522)
-monro_middle = image_2.crop(monro_middle)
-
-
-img1 = image_1
-img2 = image_2
-
-img = Image.blend(img1,img2, 0.5)
-
-image_3 = Image.open("foto_green.jpg")
-green = (51, 0, 696-50, 522)
-green = image_3.crop(green)
-
-
-new_image = Image.merge("RGB", (image_1, image_3, image_2 ))
-
-
-image = Image.open("monro_overlay.jpg")
-image.thumbnail((80, 70)) 
-image.save("new_foto1_monro.jpg")
+new_image.thumbnail((80, 70))
+new_image.save("monro_1.jpg")
